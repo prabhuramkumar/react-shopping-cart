@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './AppContainer';
-import './index.css'
 import indexReducer from './indexReducer';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';

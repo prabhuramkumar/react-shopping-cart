@@ -1,0 +1,10 @@
+.cartList_list {
+	display: flex;
+	list-style-type: none;
+	padding: 0;
+}
+
+.cartList_list__item {
+	border: 1px solid grey;
+	padding: 30px;
+}

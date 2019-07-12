@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.App {
+  padding: 50px;
+}
+
+.btn {
+  border: 0;
+  padding: 10px;
+  color: white; 
+  font-size: 14px;
+}
+
+.btn__ember {
+  background-color: orange;
+}
+
+.btn__green {
+  background-color: green;
+}
+
+

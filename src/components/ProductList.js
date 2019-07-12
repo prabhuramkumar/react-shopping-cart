@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { addToCart } from '../actions/cartActions'
+import '../styles/productList.css'
 
  class ProductList extends Component{
     
@@ -11,21 +11,21 @@ import { addToCart } from '../actions/cartActions'
       console.log("ProductList", this.props);
         let itemList = this.props.list.map(item=>{
             return(
-                <div className="card" key={item.id}>
-                        <div className="card-image">
-                            <span className="card-title">{item.title}</span>
-                            <button onClick={()=>{this.handleClick(item)}}>Add to Cart</button>
-                        </div>
-                        <p>Price: ${item.price}</p>
-                 </div>
-
+              <div className="productList__product" key={item.id}>
+                <p className="productList__title">{item.title}</p>
+                <p>{item.description}</p>
+                <p className="productList__price">Price: ${item.price}</p>
+                <button className="btn btn__green" onClick={()=>{this.handleClick(item)}}>Add to Cart</button>
+              </div>
             )
         })
 
         return(
-            <div className="container">
-              <h3 className="center">Our Products</h3>
-              {itemList}
+            <div className="productList">
+              <h2 className="productList__title">Our Products</h2>
+              <div className="productList__container">
+                {itemList}
+              </div>
             </div>
         )
     }

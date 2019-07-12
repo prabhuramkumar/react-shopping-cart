@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 
 const mapStateToProps = (state)=>{
     return{
-        cart: state.cart,
+        appState: state,
     }
 }
 const mapDispatchToProps = (dispatch)=>{

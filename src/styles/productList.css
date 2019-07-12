@@ -1,0 +1,18 @@
+.productList__container {
+  display: flex;
+  margin-bottom: 100px;
+}
+
+.productList__product {
+  border: 1px solid grey;
+  max-width: 300px;
+  padding: 20px;
+}
+
+.productList__title {
+  font-weight: bold;
+}
+
+.productList__price {
+  color: darkblue;
+}
