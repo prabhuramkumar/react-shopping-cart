@@ -4,32 +4,49 @@ const initialState = {
 }
 
 const indexReducer= (state = initialState, action)=>{
+let existedItem, newTotal, newItem, updatedCart;;
 
 	switch(action.type) {
 
 		case 'ADD_TO_CART':
-	     	let existedItem= state.cart.find(item=> action.val.id === item.id)
+	     	existedItem= state.cart.find(item=> action.val.id === item.id);
 
 	        if(existedItem) {
 	            existedItem.quantity += 1 
-	            let newTotal = state.total + existedItem.price ;
-
-	            return{
-	                ...state,
-	                cart: [...state.cart],
-	                total: newTotal
-                }
+	            newTotal = state.total + existedItem.price ;
+            	updatedCart = [...state.cart];
 	        } else {
-	            let newItem =action.val
+	            newItem =action.val
 	            newItem.quantity = 1;
-	            let newTotal = state.total + newItem.price 
-	            
-	            return{
-	                ...state,
-	                cart: [...state.cart, newItem],
-	                total : newTotal
-	            }
+	            newTotal = state.total + newItem.price ;
+	            updatedCart = [...state.cart, newItem];
 			}
+			return{
+                ...state,
+                cart: updatedCart,
+                total : newTotal
+            }
+
+		case 'REMOVE_FROM_CART':
+		console.log("val", action.val)
+	     	 existedItem= state.cart.find(item=> action.val.id === item.id)
+
+	        if(existedItem.quantity > 1) {
+	            existedItem.quantity -= 1 
+	            newTotal = state.total - existedItem.price;
+	            updatedCart = [...state.cart];
+	            console.log("updatedCart",updatedCart);
+	        } else {
+	        	let newItems = state.cart.filter(item=>item.id !== action.val.id)
+	            newTotal = state.total - existedItem.price;
+	            updatedCart = [...newItems];
+			}
+
+		 	return{
+                ...state,
+                cart: updatedCart,
+                total : newTotal
+            }
 
 		default:
 	    	return state;

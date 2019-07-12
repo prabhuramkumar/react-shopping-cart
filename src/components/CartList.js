@@ -5,8 +5,8 @@ import { removeFromCart} from '../actions/cartActions';
 class CartList extends Component{
 
     //to remove the item completely
-    handleRemove = (id)=>{
-        this.props.actions.removeFromCart(id);
+    handleRemove = (item)=>{
+        this.props.actions.removeFromCart(item);
     }
  
     render(){
@@ -23,7 +23,7 @@ class CartList extends Component{
                                 <p>
                                     <b>Quantity:</b>  {item.quantity}
                                 </p>
-                                <button  onClick={()=>{this.handleRemove(item.id)}}>Remove</button>
+                                <button  onClick={()=>{this.handleRemove(item)}}>Remove</button>
                         </li>
                     )
                 })
