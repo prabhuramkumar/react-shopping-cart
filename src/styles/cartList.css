@@ -1,3 +1,9 @@
+.cartList {
+	padding-bottom: 60px;
+	margin-bottom: 60px;
+	border-bottom: 1px solid #ccc;
+}
+
 .cartList_list {
 	display: flex;
 	list-style-type: none;

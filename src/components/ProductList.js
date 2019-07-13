@@ -8,7 +8,6 @@ import '../styles/productList.css'
     }
 
     render(){
-      console.log("ProductList", this.props);
         let itemList = this.props.list.map(item=>{
             return(
               <div className="productList__product" key={item.id}>

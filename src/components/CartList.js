@@ -8,8 +8,6 @@ class CartList extends Component{
     }
  
     render(){
-        console.log("cartlist", this.props);
-              
         let cart = this.props.cart.length ?
             (  
                 this.props.cart.map(item=>{

@@ -1,10 +1,14 @@
+import specialPricingCalculator from './utils/specialPricingCalculator';
+
 const initialState = {
     cart:[],
-    total: 0
+    total: 0,
+    specialTotal: 0,
+    specialPricing: null
 }
 
 const indexReducer= (state = initialState, action)=>{
-let existedItem, newTotal, newItem, updatedCart;;
+let existedItem, newTotal, newItem, updatedCart, specialTotal;
 
 	switch(action.type) {
 
@@ -13,29 +17,28 @@ let existedItem, newTotal, newItem, updatedCart;;
 
 	        if(existedItem) {
 	            existedItem.quantity += 1 
-	            newTotal = state.total + existedItem.price ;
+	            newTotal = state.total + existedItem.price;
             	updatedCart = [...state.cart];
 	        } else {
-	            newItem =action.val
+	            newItem =action.val;
 	            newItem.quantity = 1;
-	            newTotal = state.total + newItem.price ;
+	            newTotal = state.total + newItem.price;
 	            updatedCart = [...state.cart, newItem];
 			}
 			return{
                 ...state,
                 cart: updatedCart,
-                total : newTotal
+                total : newTotal,
+                specialTotal: specialPricingCalculator(state.specialPricing, updatedCart, newTotal)
             }
 
 		case 'REMOVE_FROM_CART':
-		console.log("val", action.val)
 	     	 existedItem= state.cart.find(item=> action.val.id === item.id)
 
 	        if(existedItem.quantity > 1) {
 	            existedItem.quantity -= 1 
 	            newTotal = state.total - existedItem.price;
 	            updatedCart = [...state.cart];
-	            console.log("updatedCart",updatedCart);
 	        } else {
 	        	let newItems = state.cart.filter(item=>item.id !== action.val.id)
 	            newTotal = state.total - existedItem.price;
@@ -45,7 +48,16 @@ let existedItem, newTotal, newItem, updatedCart;;
 		 	return{
                 ...state,
                 cart: updatedCart,
-                total : newTotal
+                total : newTotal,
+                specialTotal: specialPricingCalculator(state.specialPricing, updatedCart, newTotal)
+            }
+
+        case 'UPDATE_SPECIAL_PRICING':
+			console.log("specialPricing", action.val)
+		 	return{
+                ...state,
+                specialPricing: action.val,
+                specialTotal: specialPricingCalculator(action.val, state.cart, state.total)
             }
 
 		default:
