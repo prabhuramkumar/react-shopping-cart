@@ -25,12 +25,14 @@ let existedItem, newTotal, newItem, updatedCart;
 	            newTotal = Number((state.total + newItem.price).toFixed(2));
 	            updatedCart = [...state.cart, newItem];
 			}
-			return{
-                ...state,
-                cart: updatedCart,
-                total : newTotal,
-                specialTotal: specialPricingCalculator(state.specialPricing, updatedCart, newTotal)
-            }
+			return Object.assign({},
+                state,
+                {
+	                cart: updatedCart,
+	                total : newTotal,
+	                specialTotal: specialPricingCalculator(state.specialPricing, updatedCart, newTotal)
+	            }
+            )
 
 		case 'REMOVE_FROM_CART':
 	     	 existedItem= state.cart.find(item=> action.val.id === item.id)
@@ -45,19 +47,23 @@ let existedItem, newTotal, newItem, updatedCart;
 	            updatedCart = [...newItems];
 			}
 
-		 	return{
-                ...state,
-                cart: updatedCart,
-                total : newTotal,
-                specialTotal: specialPricingCalculator(state.specialPricing, updatedCart, newTotal)
-            }
+		 	return Object.assign({},
+                state,
+                {
+	                cart: updatedCart,
+	                total : newTotal,
+	                specialTotal: specialPricingCalculator(state.specialPricing, updatedCart, newTotal)
+	            }
+            )
 
         case 'UPDATE_SPECIAL_PRICING':
-		 	return{
-                ...state,
-                specialPricing: action.val,
-                specialTotal: specialPricingCalculator(action.val, state.cart, state.total)
-            }
+		 	return Object.assign({}, 
+                state,
+                {
+	                specialPricing: action.val,
+	                specialTotal: specialPricingCalculator(action.val, state.cart, state.total)
+	            }
+            )
 
 		default:
 	    	return state;

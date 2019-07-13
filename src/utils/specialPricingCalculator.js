@@ -12,7 +12,8 @@ const specialPricingCalculator = function (specialPricing, cart, total) {
 	if(selectedPromotions.priceDrop) {
 		totalOverallDiscount += priceDrop(selectedPromotions.priceDrop, cart);
 	}
-	return Number(total - totalOverallDiscount).toFixed(2);
+
+	return Number((total - totalOverallDiscount).toFixed(2));
 };
 
 const XforY = function(promotions, cart) {

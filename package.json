@@ -25,7 +25,8 @@
     "extends": "react-app"
   },
   "babel": {
-    "presets": ["@babel/preset-env"]
+    "presets": ["@babel/preset-env", "@babel/preset-react"],
+    "plugins": ["@babel/proposal-class-properties"]
   },
   "browserslist": {
     "production": [
