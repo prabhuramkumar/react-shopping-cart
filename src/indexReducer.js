@@ -8,7 +8,7 @@ const initialState = {
 }
 
 const indexReducer= (state = initialState, action)=>{
-let existedItem, newTotal, newItem, updatedCart, specialTotal;
+let existedItem, newTotal, newItem, updatedCart;
 
 	switch(action.type) {
 
@@ -17,12 +17,12 @@ let existedItem, newTotal, newItem, updatedCart, specialTotal;
 
 	        if(existedItem) {
 	            existedItem.quantity += 1 
-	            newTotal = state.total + existedItem.price;
+	            newTotal = Number((state.total + existedItem.price).toFixed(2));
             	updatedCart = [...state.cart];
 	        } else {
 	            newItem =action.val;
 	            newItem.quantity = 1;
-	            newTotal = state.total + newItem.price;
+	            newTotal = Number((state.total + newItem.price).toFixed(2));
 	            updatedCart = [...state.cart, newItem];
 			}
 			return{
@@ -37,11 +37,11 @@ let existedItem, newTotal, newItem, updatedCart, specialTotal;
 
 	        if(existedItem.quantity > 1) {
 	            existedItem.quantity -= 1 
-	            newTotal = state.total - existedItem.price;
+	            newTotal = Number((state.total - existedItem.price).toFixed(2));
 	            updatedCart = [...state.cart];
 	        } else {
 	        	let newItems = state.cart.filter(item=>item.id !== action.val.id)
-	            newTotal = state.total - existedItem.price;
+	            newTotal = Number((state.total - existedItem.price).toFixed(2));
 	            updatedCart = [...newItems];
 			}
 
@@ -53,7 +53,6 @@ let existedItem, newTotal, newItem, updatedCart, specialTotal;
             }
 
         case 'UPDATE_SPECIAL_PRICING':
-			console.log("specialPricing", action.val)
 		 	return{
                 ...state,
                 specialPricing: action.val,

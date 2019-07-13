@@ -13,6 +13,7 @@ class Checkout extends Component{
         if(selectedPricing && selectedPricing.promotions) {
            this.props.actions.updateSpecialPricing(selectedPricing);
            let promotionText = selectedPricing.description.map((item)=>{return item + "\n"});
+           this.setState({promotionText});
         }
     }
 
