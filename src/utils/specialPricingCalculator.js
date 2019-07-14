@@ -33,7 +33,6 @@ const XforY = function(promotions, cart) {
 			}
 		});
 	});
-	console.log("xfory", discount);
 	return discount;
 }
 
