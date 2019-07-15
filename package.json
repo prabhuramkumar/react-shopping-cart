@@ -13,6 +13,7 @@
     "@babel/preset-env": "^7.5.4",
     "@babel/preset-react": "^7.0.0",
     "babel-jest": "^24.8.0",
+    "babel-plugin-transform-react-error-boundary": "^1.0.0",
     "react-test-renderer": "^16.8.6"
   },
   "scripts": {
@@ -25,8 +26,14 @@
     "extends": "react-app"
   },
   "babel": {
-    "presets": ["@babel/preset-env", "@babel/preset-react"],
-    "plugins": ["@babel/proposal-class-properties"]
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/proposal-class-properties",
+      "babel-plugin-transform-react-error-boundary"
+    ]
   },
   "browserslist": {
     "production": [

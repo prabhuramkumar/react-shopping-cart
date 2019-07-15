@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import './styles/app.css';
 import products from './data/products';
-import ProductList from './components/ProductList';
-import CartList from './components/CartList';
-import Checkout from './components/Checkout';
+const ProductList = lazy(() => import('./components/ProductList'));
+const CartList = lazy(() => import('./components/CartList'));
+const Checkout = lazy(() => import('./components/Checkout'));
 
 class App extends Component {
 	constructor(props) {
@@ -15,9 +15,11 @@ class App extends Component {
 		const {cart, total, specialTotal} = this.props.appState;
 	  return (
 	    <div className="App">
-	      <ProductList list={products} actions={this.props.actions}/>
-	      <CartList cart={cart} actions={this.props.actions} total={total}/>
-	      <Checkout cart={cart} specialTotal={specialTotal} total={total} actions={this.props.actions}/>
+	    	<Suspense fallback={<div>Loading...</div>}>
+	      		<ProductList actions={this.props.actions}/>
+	      		<CartList cart={cart} actions={this.props.actions} total={total}/>
+	      		<Checkout cart={cart} specialTotal={specialTotal} total={total} actions={this.props.actions}/>
+	      	</Suspense>
 	    </div>
 	  )
 	};
