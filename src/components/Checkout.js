@@ -20,33 +20,39 @@ class Checkout extends Component{
     handlePayment = ()=>{
         this.setState({thankYouMessage: "Thanks for shopping with us."})
     }
+
+    promotionList = () => {
+         return specialPricing.map((item, index)=>{
+            return <option value={index} key={item.id}>{item.company}</option>
+        });
+    }
+
+    // if special pricing is not avialibale, regular checkut continues.
+    specialPricing = () => {
+        if(specialPricing && specialPricing.length) {
+            return (  
+                <div>
+                    <p>Check if your company is eligible for the special pricing.</p>
+                    <select className="checkout__select" onChange={(e)=>this.handleChange(e)}>
+                        <option value={null} >Choose</option>
+                        {this.promotionList()}
+                    </select>
+                    <p>{this.state.promotionText}</p>
+                    <div className="checkout__total">
+                        <b>Discounted Total:</b> ${this.props.specialTotal}
+                    </div>
+                </div>
+            )
+        }
+    }
  
     render(){
-        let specialPriceSelectBox = specialPricing.length ?
-            (  
-                specialPricing.map((item, index)=>{
-                    return(
-                        <option value={index} key={item.id}>{item.company}</option>
-                    )
-                })
-            ):
-            null
        return(
             <div className="checkout">
                 <h3>Checkout:</h3>
-                <p>Check if your company is eligible for the special pricing.</p>
-                <select className="checkout__select" onChange={(e)=>this.handleChange(e)}>
-                    <option value={null} >Choose</option>
-                    {specialPriceSelectBox}
-                </select>
-
-                <p>{this.state.promotionText}</p>
-                <div className="checkout__total">
-                    <b>Discounted Total:</b> ${this.props.specialTotal}
-                </div>
+                {this.specialPricing()}
                 <button className="btn btn__green btn__green--payment" onClick={()=>this.handlePayment()}>Continue & Pay</button>
                 <p className="checkout__thankyou">{this.state.thankYouMessage}</p>
-                  
             </div> 
        )
     }
