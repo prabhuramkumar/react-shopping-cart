@@ -6,19 +6,19 @@ class Checkout extends Component{
     constructor() {
         super();
         this.state={promotionText: "", thankYouMessage: ""};
+        this.thankYouMessage = "Thanks for shopping with us.";
     }
 
     handleChange = (e)=>{
         let selectedPricing = specialPricing[e.target.value];
-        if(selectedPricing && selectedPricing.promotions) {
-           this.props.actions.updateSpecialPricing(selectedPricing);
-           let promotionText = selectedPricing.description.map((item)=>{return item + "\n"});
-           this.setState({promotionText});
-        }
+       this.props.actions.updateSpecialPricing(selectedPricing);
+       let promotionText = selectedPricing.description.map((item)=>{return item + "\n"});
+       this.setState({promotionText});
     }
 
+    //static message display.
     handlePayment = ()=>{
-        this.setState({thankYouMessage: "Thanks for shopping with us."})
+        this.setState({thankYouMessage: this.thankYouMessage})
     }
 
     promotionList = () => {
@@ -27,7 +27,7 @@ class Checkout extends Component{
         });
     }
 
-    // if special pricing is not avialibale, regular checkut continues.
+    //if special pricing is not avialibale, regular checkut continues.
     specialPricing = () => {
         if(specialPricing && specialPricing.length) {
             return (  
