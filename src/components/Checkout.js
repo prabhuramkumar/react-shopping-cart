@@ -23,7 +23,7 @@ function Checkout(props){
         setMessage({thankYouMessage})
     }
 
-    const promotionList = ()=>{
+    const promotionOptions = ()=>{
         return promotions.map((item, index)=>{
             return <option value={index} key={item.id}>{item.promotionReference}</option>
         });
@@ -37,7 +37,7 @@ function Checkout(props){
                     <p>Check if you are eligible for the special pricing with your promotion reference.</p>
                     <select className="checkout__select" onChange={(e)=>handleChange(e)}>
                         <option value={null} >Choose</option>
-                        {promotionList()}
+                        {promotionOptions()}
                     </select>
                     <p>{messages.promotionText}</p>
                     <div className="checkout__total">

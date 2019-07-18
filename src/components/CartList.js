@@ -7,7 +7,7 @@ function CartList(props){
         props.actions.removeFromCart(item);
     }
 
-    const generateCart = ()=>{
+    const generateCartList = ()=>{
        return props.cart.length ?
         (  
             props.cart.map(item=>{
@@ -31,7 +31,7 @@ function CartList(props){
         <div className="cartList">
             <h3>Shopping Cart:</h3>
             <ul className="cartList_list">
-                {generateCart()}
+                {generateCartList()}
             </ul>
             <div className="cartList__total">
                 <b>Total:</b> ${props.total}

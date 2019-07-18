@@ -8,7 +8,7 @@ function ProductList(props){
         props.actions.addToCart(item); 
     }
 
-    const productList = ()=> {
+    const generateProductList = ()=> {
       if(products && products.length) {
          return products.map(item=>{
             return(
@@ -28,7 +28,7 @@ function ProductList(props){
         <div className="productList">
           <h2 className="productList__title">Our Products</h2>
           <div className="productList__container">
-            {productList()}
+            {generateProductList()}
           </div>
         </div>
     )
