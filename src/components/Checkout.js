@@ -12,7 +12,7 @@ class Checkout extends Component{
     handleChange = (e)=>{
         let selectedPricing = specialPricing[e.target.value];
        this.props.actions.updateSpecialPricing(selectedPricing);
-       let promotionText = selectedPricing.description.map((item)=>{return item + "\n"});
+       let promotionText = selectedPricing && selectedPricing.description.map((item)=>{return item + "\n"});
        this.setState({promotionText});
     }
 
@@ -23,7 +23,7 @@ class Checkout extends Component{
 
     promotionList = () => {
          return specialPricing.map((item, index)=>{
-            return <option value={index} key={item.id}>{item.company}</option>
+            return <option value={index} key={item.id}>{item.promotionReference}</option>
         });
     }
 
@@ -32,7 +32,7 @@ class Checkout extends Component{
         if(specialPricing && specialPricing.length) {
             return (  
                 <div>
-                    <p>Check if your company is eligible for the special pricing.</p>
+                    <p>Check if you are eligible for the special pricing with your promotion reference.</p>
                     <select className="checkout__select" onChange={(e)=>this.handleChange(e)}>
                         <option value={null} >Choose</option>
                         {this.promotionList()}

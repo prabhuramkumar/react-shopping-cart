@@ -1,28 +1,35 @@
 const specialPricing = [
 	{
 		id: 1,
-		company: 'MYER',
+		promotionReference: 'RRD4D32',
 		promotions: {
-			'priceDrop': [{newPrice: 389.99, categoryId: 3}],
-			'XforY': [{x: 5, y: 4, categoryId: 2}]
+			'percentageDiscount': [{percentage: 10, minimumPurchase: 1000}]
 		},
-		description: ['5 for 4 deal on Stand out Ads.', 'Discount on Premium Ads where the price drops to $389.99 per ad']
+		description: ['10% discount for orders above $1000 (pre-discount)']
 	},
 	{
 		id: 2,
-		company: 'Axil Coffee Roasters',
+		promotionReference: '44F4T11',
 		promotions: {
-			'priceDrop': [{newPrice: 299.99, categoryId: 2}]
+			'percentageDiscount': [{percentage: 15, minimumPurchase: 1500}]
 		},
-		description: ['Discount on Stand out Ads where the price drops to $299.99 per ad']
+		description: ['15% discount for orders above $1500 (pre-discount)']
 	},
 	{
 		id: 3,
-		company: 'SecondBite',
+		promotionReference: 'FF9543D1',
 		promotions: {
-			'XforY': [{x: 3, y: 2, categoryId: 1}]
+			'priceDrop': [{newPrice: 8.99, categoryId: 2, depedentCategoryId: 2, minimumPurchase: 10}]
 		},
-		description: ['3 for 2 deal on Classic Ads.']
+		description: ['Price drops to 8.99 for docgen when atleast 10 docgen are purchased']
+	},
+	{
+		id: 4,
+		promotionReference: 'YYGWKJD',
+		promotions: {
+			'priceDrop': [{newPrice: 89.99, categoryId: 3, depedentCategoryId: 1, minimumPurchase: 1}]
+		},
+		description: ['Price drops to 89.99 for form when atleast 1 wf is purchased']
 	}
 ];
 export default specialPricing;

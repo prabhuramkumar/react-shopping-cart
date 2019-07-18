@@ -8,14 +8,15 @@ const initialState = {
 }
 
 const products = [
-    {id:1,title:'Classic Ad', description: "This is classic ad", price:10},
-    {id:2,title:'Stand out Ad', description: "This is stand out ad", price:10},
-    {id:3,title:'Premium Ad', description: "This is Premium ad", price:10},
-];
+    {id:1,title:'wf', description: "Workflow", price:10},
+    {id:2,title:'docgen', description: "Document Generation", price:10},
+    {id:3,title:'form', description: "Form", price:10},
+]
+
+  
+let newState;
 
 describe('Reducer test - Testing initialState, Add_To_Cart and Remove_From_Cart', () => {
-	let newState;
-
   it('should return the initial state', () => {
     expect(indexReducer(undefined, {})).toEqual(initialState);
   });
@@ -37,8 +38,8 @@ describe('Reducer test - Testing initialState, Add_To_Cart and Remove_From_Cart'
   	}
   	newState = indexReducer(newState, actions);
     expect(newState.total).toEqual(20);
-	expect(newState.cart.length).toEqual(1);
-	expect(newState.cart[0].quantity).toEqual(2);
+	 expect(newState.cart.length).toEqual(1);
+	 expect(newState.cart[0].quantity).toEqual(2);
   });
 
 
@@ -49,127 +50,137 @@ describe('Reducer test - Testing initialState, Add_To_Cart and Remove_From_Cart'
   	}
   	newState = indexReducer(newState, actions);
     expect(newState.total).toEqual(10);
-	expect(newState.cart.length).toEqual(1);
-	expect(newState.cart[0].quantity).toEqual(1);
+	 expect(newState.cart.length).toEqual(1);
+	 expect(newState.cart[0].quantity).toEqual(1);
   });
 
-});
-
-
-describe('Reducer test - 3for2 logic', () => {
-	let newState = initialState;
-
-	it('should reset state and add stand out ad 5 times and total be 30', () => {
-		let actions = {
-			type: 'ADD_TO_CART',
-			val: products[0]
-		}
-		
-		for (var i = 0; i < 3; i++) {
-			newState = indexReducer(newState, actions);
-		}
-		expect(newState.total).toEqual(30.00);
-		expect(newState.cart[0].quantity).toEqual(3);
-	});
-
-	it('should test 3for2 logic and totol shold be 20', () => {
-		let specialPricing = {
-			id: 3,
-			company: 'SecondBite',
-			promotions: {
-				'XforY': [{x: 3, y: 2, categoryId: 1}]
-			},
-			description: ['3 for 2 deal on Classic Ads.']
-		}
-
-		let actions = {
-				type: 'UPDATE_SPECIAL_PRICING',
-				val: specialPricing
-			}
-		newState = indexReducer(newState, actions);
-		expect(newState.specialPricing.id).toEqual(3);
-		expect(newState.total).toEqual(30.00);
-		expect(newState.specialTotal).toEqual(20.00);
-	});
-
-});
-
-
-describe('Reducer test -  5for4 logic', () => {
-  let newState = initialState;
-
-  it('should reset state and add stand out ad 5 times and total be 50', () => {
-  	let actions = {
-  		type: 'ADD_TO_CART',
-  		val: products[1]
-  	}
-  	
-  	for (var i = 0; i < 5; i++) {
-	  newState = indexReducer(newState, actions);
-	}
-  	
-    expect(newState.total).toEqual(50.00);
-    expect(newState.cart[0].quantity).toEqual(5);
-  });
-
-  it('should test 5for4 logic for MYER and standout combination', () => {
-  	let specialPricing = {
-		id: 1,
-		company: 'MYER',
-		promotions: {
-			'priceDrop': [{newPrice: 10, categoryId: 3}],
-			'XforY': [{x: 5, y: 4, categoryId: 2}]
-		},
-		description: ['5 for 4 deal on Stand out Ads.', 'Discount on Premium Ads where the price drops to $389.99 per ad']
-	}
-
-	let actions = {
-  		type: 'UPDATE_SPECIAL_PRICING',
-  		val: specialPricing
-  	}
-  	newState = indexReducer(newState, actions);
-    expect(newState.total).toEqual(50.00);
-    expect(newState.specialTotal).toEqual(40.00);
-    expect(newState.cart[0].quantity).toEqual(5);
-  });
 });
 
 
 describe('Reducer test - priceDrop logic', () => {
-  let newState = initialState;
-
-  it('should reset state and add premium ad 5 times and total be 50', () => {
-  	let actions = {
-  		type: 'ADD_TO_CART',
-  		val: products[2]
-  	}
-  	
-  	for (var i = 0; i < 5; i++) {
-	  newState = indexReducer(newState, actions);
-	}
-  	
-    expect(newState.total).toEqual(50.00);
-    expect(newState.cart[0].quantity).toEqual(5);
+  beforeEach(() => {
+     newState = initialState;
   });
 
-  it('should test price drop logic for MYER and premium ads', () => {
+  it('should test price drop when it depedends on the same product', () => {
+    let actions1 = {
+      type: 'ADD_TO_CART',
+      val: products[0]
+    }
+
+    for(let i=0; i<6; i++) {
+     newState = indexReducer(newState, actions1);
+    }
+    
+    let actions = {
+        type: 'UPDATE_SPECIAL_PRICING',
+        val: {
+          id: 1,
+          promotionReference: 'YYGWKJD',
+          promotions: {
+            'priceDrop': [{newPrice: 8, categoryId: 1, depedentCategoryId: 1, minimumPurchase: 4}]
+          },
+          description: ['Price drops']
+        }
+      }
+    newState = indexReducer(newState, actions);
+    expect(newState.total).toEqual(60.00);
+    expect(newState.specialTotal).toEqual(48.00);
+  });
+
+  it('should test price drop when it depedends on other product', () => {
   	let specialPricing = {
-		id: 1,
-		company: 'MYER',
-		promotions: {
-			'priceDrop': [{newPrice: 8, categoryId: 3}],
-			'XforY': [{x: 5, y: 4, categoryId: 2}]
-		},
-		description: ['5 for 4 deal on Stand out Ads.', 'Discount on Premium Ads where the price drops to $389.99 per ad']
-	}
-
-	let actions = {
-  		type: 'UPDATE_SPECIAL_PRICING',
-  		val: specialPricing
+  		id: 1,
+  		promotionReference: 'YYGWKJD',
+  		promotions: {
+  			'priceDrop': [{newPrice: 8, categoryId: 3, depedentCategoryId: 1, minimumPurchase: 1}]
+  		},
+  		description: ['Price drops to 89.99 for form when atleast 1 wf is purchased']
   	}
+    let actions1 = {
+      type: 'ADD_TO_CART',
+      val: products[2]
+    }
+
+    let actions2 = {
+      type: 'ADD_TO_CART',
+      val: products[0]
+    }
+    newState = indexReducer(newState, actions1);
+    newState = indexReducer(newState, actions2);
+    let actions = {
+  		type: 'UPDATE_SPECIAL_PRICING',
+  		val: {
+              id: 2,
+              promotionReference: 'YYGWKJD',
+              promotions: {
+                'priceDrop': [{newPrice: 8, categoryId: 3, depedentCategoryId: 1, minimumPurchase: 1}]
+              },
+              description: ['Price drops']
+            }
+  	  }
   	newState = indexReducer(newState, actions);
-    expect(newState.total).toEqual(50.00);
-    expect(newState.specialTotal).toEqual(40.00);
-    expect(newState.cart[0].quantity).toEqual(5);
+    expect(newState.total).toEqual(20.00);
+    expect(newState.specialTotal).toEqual(18.00);
   });
+});
+
+
+describe('Reducer test - percentage discount logic', () => {
+  beforeEach(() => {
+     newState = initialState;
+  });
+
+  it('should test 10% percenatge discount', () => {
+    let actions1 = {
+      type: 'ADD_TO_CART',
+      val: products[0]
+    }
+
+    for(let i=0; i<5; i++) {
+     newState = indexReducer(newState, actions1);
+    }
+    
+    let actions = {
+        type: "UPDATE_SPECIAL_PRICING",
+        val: {
+            id: 1,
+            promotionReference: 'RRD4D32',
+            promotions: {
+              'percentageDiscount': [{percentage: 10, minimumPurchase: 50}]
+            },
+            description: ['10% discount']
+          }
+    }
+    newState = indexReducer(newState, actions);
+    expect(newState.total).toEqual(50.00);
+    expect(newState.specialTotal).toEqual(45.00);
+  });
+
+  it('should test 15% percenatge discount', () => {
+    let actions = {
+      type: 'ADD_TO_CART',
+      val: products[0]
+    }
+
+    for(let i=0; i<10; i++) {
+     newState = indexReducer(newState, actions);
+    }
+    
+    actions = {
+        type: "UPDATE_SPECIAL_PRICING",
+        val: {
+            id: 1,
+            promotionReference: 'RRD4D32',
+            promotions: {
+              'percentageDiscount': [{percentage: 15, minimumPurchase: 100}]
+            },
+            description: ['10% discount']
+          }
+    }
+    newState = indexReducer(newState, actions);
+    expect(newState.total).toEqual(100.00);
+    expect(newState.specialTotal).toEqual(85.00);
+  });
+
 });
