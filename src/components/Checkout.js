@@ -1,61 +1,61 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import '../styles/checkout.css'
 import specialPricing from '../data/specialPricing';
 
-class Checkout extends Component{
-    constructor() {
-        super();
-        this.state={promotionText: "", thankYouMessage: ""};
-        this.thankYouMessage = "Thanks for shopping with us.";
-    }
+function Checkout(props){
+    const [messages, setMessage] = useState({promotionText: "", thankYouMessage: ""});
+    const [promotions, setPromotions] = useState(null);
+    const thankYouMessage = "Thanks for shopping with us.";
 
-    handleChange = (e)=>{
+    useEffect(() => {
+        setPromotions(specialPricing);
+    });
+
+    const handleChange = (e)=>{
         let selectedPricing = specialPricing[e.target.value];
-        this.props.actions.updateSpecialPricing(selectedPricing);
+        props.actions.updateSpecialPricing(selectedPricing);
         let promotionText = selectedPricing && selectedPricing.description.map((item)=>{return item + "\n"});
-        this.setState({promotionText});
+        setMessage({promotionText})
     }
 
     //static message display.
-    handlePayment = ()=>{
-        this.setState({thankYouMessage: this.thankYouMessage})
+    const handlePayment = ()=>{
+        setMessage({thankYouMessage})
     }
 
-    promotionList = () => {
-        return specialPricing.map((item, index)=>{
+    const promotionList = ()=>{
+        return promotions.map((item, index)=>{
             return <option value={index} key={item.id}>{item.promotionReference}</option>
         });
     }
 
-    //if special pricing is not avialibale, customers can still use regular checkout continues.
-    specialPricing = () => {
-        if(specialPricing && specialPricing.length) {
+    
+    const generatePromotionList = () => {
+        if(promotions && promotions.length) {
             return (  
                 <div>
                     <p>Check if you are eligible for the special pricing with your promotion reference.</p>
-                    <select className="checkout__select" onChange={(e)=>this.handleChange(e)}>
+                    <select className="checkout__select" onChange={(e)=>handleChange(e)}>
                         <option value={null} >Choose</option>
-                        {this.promotionList()}
+                        {promotionList()}
                     </select>
-                    <p>{this.state.promotionText}</p>
+                    <p>{messages.promotionText}</p>
                     <div className="checkout__total">
-                        <b>Discounted Total:</b> ${this.props.specialTotal}
+                        <b>Discounted Total:</b> ${props.specialTotal}
                     </div>
                 </div>
             )
         }
     }
  
-    render(){
-       return(
-            <div className="checkout">
-                <h3>Checkout:</h3>
-                {this.specialPricing()}
-                <button className="btn btn__green btn__green--payment" onClick={()=>this.handlePayment()}>Continue & Pay</button>
-                <p className="checkout__thankyou">{this.state.thankYouMessage}</p>
-            </div> 
-       )
-    }
+   return(
+        <div className="checkout">
+            <h3>Checkout:</h3>
+            {generatePromotionList()}
+            <button className="btn btn__green btn__green--payment" onClick={()=>handlePayment()}>Continue & Pay</button>
+            <p className="checkout__thankyou">{messages.thankYouMessage}</p>
+        </div> 
+   )
 }
 
 

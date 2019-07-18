@@ -1,4 +1,4 @@
-const specialPricingCalculator = function (specialPricing, cart, total) { 
+const promotionalPriceCalculator = function (specialPricing, cart, total) { 
 	if (!specialPricing)
 		return false;
 
@@ -46,4 +46,4 @@ const priceDrop = function(promotions, cart) {
 	return discount;
 }
 
-export default specialPricingCalculator;
+export default promotionalPriceCalculator;

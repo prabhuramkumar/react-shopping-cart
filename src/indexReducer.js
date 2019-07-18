@@ -1,4 +1,4 @@
-import specialPricingCalculator from './utils/specialPricingCalculator';
+import promotionalPriceCalculator from './utils/promotionsUtils';
 
 const initialState = {
     cart:[],
@@ -31,7 +31,7 @@ let existingItem, newTotal, newItem, updatedCart;
                 {
 	                cart: updatedCart,
 	                total : newTotal,
-	                specialTotal: specialPricingCalculator(state.specialPricing, updatedCart, newTotal)
+	                specialTotal: promotionalPriceCalculator(state.specialPricing, updatedCart, newTotal)
 	            }
             )
 
@@ -53,7 +53,7 @@ let existingItem, newTotal, newItem, updatedCart;
                 {
 	                cart: updatedCart,
 	                total : newTotal,
-	                specialTotal: specialPricingCalculator(state.specialPricing, updatedCart, newTotal)
+	                specialTotal: promotionalPriceCalculator(state.specialPricing, updatedCart, newTotal)
 	            }
             )
 
@@ -62,7 +62,7 @@ let existingItem, newTotal, newItem, updatedCart;
                 state,
                 {
 	                specialPricing: action.val,
-	                specialTotal: specialPricingCalculator(action.val, state.cart, state.total)
+	                specialTotal: promotionalPriceCalculator(action.val, state.cart, state.total)
 	            }
             )
 

@@ -8,7 +8,7 @@ const initialState = {
     promotions: null
 }
 
-const products = [
+const mockProducts = [
     {id:1,title:'wf', description: "Workflow", price:10},
     {id:2,title:'docgen', description: "Document Generation", price:10},
     {id:3,title:'form', description: "Form", price:10},
@@ -25,17 +25,17 @@ describe('Reducer test - Testing initialState, Add_To_Cart and Remove_From_Cart'
   it('should add a product to the state and update total', () => {
   	let actions = {
   		type: 'ADD_TO_CART',
-  		val: products[0]
+  		val: mockProducts[0]
   	}
   	newState = indexReducer(initialState, actions);
     expect(newState.total).toEqual(10);
 	expect(newState.cart.length).toEqual(1);
   });
 
-  it('should update quantity when same product added again and update total', () => {
+  it('should update quantity when same product added again and should update total', () => {
   	let actions = {
   		type: 'ADD_TO_CART',
-  		val: products[0]
+  		val: mockProducts[0]
   	}
   	newState = indexReducer(newState, actions);
     expect(newState.total).toEqual(20);
@@ -44,10 +44,10 @@ describe('Reducer test - Testing initialState, Add_To_Cart and Remove_From_Cart'
   });
 
 
-  it('should update quantity when a product removed and update total', () => {
+  it('should update quantity when a product is removed and should update total', () => {
   	let actions = {
   		type: 'REMOVE_FROM_CART',
-  		val: products[0]
+  		val: mockProducts[0]
   	}
   	newState = indexReducer(newState, actions);
     expect(newState.total).toEqual(10);
@@ -63,10 +63,10 @@ describe('Reducer test - priceDrop logic', () => {
      newState = initialState;
   });
 
-  it('should test price drop when it depedends on the same product', () => {
+  it('should test price drop when it discount depends on the same product', () => {
     let actions1 = {
       type: 'ADD_TO_CART',
-      val: products[0]
+      val: mockProducts[0]
     }
 
     for(let i=0; i<6; i++) {
@@ -89,7 +89,7 @@ describe('Reducer test - priceDrop logic', () => {
     expect(newState.specialTotal).toEqual(48.00);
   });
 
-  it('should test price drop when it depedends on other product', () => {
+  it('should test price drop when discount depends on other product', () => {
   	let specialPricing = {
   		id: 1,
   		promotionReference: 'YYGWKJD',
@@ -100,12 +100,12 @@ describe('Reducer test - priceDrop logic', () => {
   	}
     let actions1 = {
       type: 'ADD_TO_CART',
-      val: products[2]
+      val: mockProducts[2]
     }
 
     let actions2 = {
       type: 'ADD_TO_CART',
-      val: products[0]
+      val: mockProducts[0]
     }
     newState = indexReducer(newState, actions1);
     newState = indexReducer(newState, actions2);
@@ -135,7 +135,7 @@ describe('Reducer test - percentage discount logic', () => {
   it('should test 10% percenatge discount', () => {
     let actions1 = {
       type: 'ADD_TO_CART',
-      val: products[0]
+      val: mockProducts[0]
     }
 
     for(let i=0; i<5; i++) {
@@ -161,7 +161,7 @@ describe('Reducer test - percentage discount logic', () => {
   it('should test 15% percenatge discount', () => {
     let actions = {
       type: 'ADD_TO_CART',
-      val: products[0]
+      val: mockProducts[0]
     }
 
     for(let i=0; i<10; i++) {

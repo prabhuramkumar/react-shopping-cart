@@ -1,6 +1,5 @@
 import React, { Component, lazy, Suspense } from 'react';
 import './styles/app.css';
-import products from './data/products';
 import ErrorBoundary  from './components/ErrorBoundary';
 const ProductList = lazy(() => import('./components/ProductList'));
 const CartList = lazy(() => import('./components/CartList'));
