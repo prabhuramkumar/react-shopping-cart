@@ -19,7 +19,7 @@ const specialPricing = [
 		id: 3,
 		promotionReference: 'FF9543D1',
 		promotions: {
-			'priceDrop': [{newPrice: 8.99, categoryId: 2, depedentCategoryId: 2, minimumPurchase: 10}]
+			'priceDrop': [{newPrice: 8.99, categoryId: 'docgen', depedentCategoryId: 'docgen', minimumPurchase: 10}]
 		},
 		description: ['Price drops to 8.99 for docgen when atleast 10 docgen are purchased']
 	},
@@ -27,7 +27,7 @@ const specialPricing = [
 		id: 4,
 		promotionReference: 'YYGWKJD',
 		promotions: {
-			'priceDrop': [{newPrice: 89.99, categoryId: 3, depedentCategoryId: 1, minimumPurchase: 1}]
+			'priceDrop': [{newPrice: 89.99, categoryId: 'form', depedentCategoryId: 'wf', minimumPurchase: 1}]
 		},
 		description: ['Price drops to 89.99 for form when atleast 1 wf is purchased']
 	}

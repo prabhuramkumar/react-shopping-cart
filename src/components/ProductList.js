@@ -30,7 +30,6 @@ import products from '../data/products';
             return(
               <div className="productList__product" key={item.id}>
                 <p className="productList__title">{item.title}</p>
-                <p>{item.description}</p>
                 <p className="productList__price">Price: ${item.price}</p>
                 <button className="btn btn__green" onClick={()=>{this.handleClick(item)}}>Add to Cart</button>
               </div>

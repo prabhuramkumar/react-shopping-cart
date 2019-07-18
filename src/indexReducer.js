@@ -4,20 +4,21 @@ const initialState = {
     cart:[],
     total: 0,
     specialTotal: 0,
-    specialPricing: null
+    specialPricing: null,
+    promotions: null
 }
 
 const indexReducer= (state = initialState, action)=>{
-let existedItem, newTotal, newItem, updatedCart;
+let existingItem, newTotal, newItem, updatedCart;
 
 	switch(action.type) {
 
 		case 'ADD_TO_CART':
-	     	existedItem= state.cart.find(item=> action.val.id === item.id);
+	     	existingItem= state.cart.find(item=> action.val.id === item.id);
 
-	        if(existedItem) {
-	            existedItem.quantity += 1 
-	            newTotal = Number((state.total + existedItem.price).toFixed(2));
+	        if(existingItem) {
+	            existingItem.quantity += 1 
+	            newTotal = Number((state.total + existingItem.price).toFixed(2));
             	updatedCart = [...state.cart];
 	        } else {
 	            newItem =action.val;
@@ -35,15 +36,15 @@ let existedItem, newTotal, newItem, updatedCart;
             )
 
 		case 'REMOVE_FROM_CART':
-	     	 existedItem= state.cart.find(item=> action.val.id === item.id)
+	     	 existingItem= state.cart.find(item=> action.val.id === item.id)
 
-	        if(existedItem.quantity > 1) {
-	            existedItem.quantity -= 1 
-	            newTotal = Number((state.total - existedItem.price).toFixed(2));
+	        if(existingItem.quantity > 1) {
+	            existingItem.quantity -= 1 
+	            newTotal = Number((state.total - existingItem.price).toFixed(2));
 	            updatedCart = [...state.cart];
 	        } else {
 	        	let newItems = state.cart.filter(item=>item.id !== action.val.id)
-	            newTotal = Number((state.total - existedItem.price).toFixed(2));
+	            newTotal = Number((state.total - existingItem.price).toFixed(2));
 	            updatedCart = [...newItems];
 			}
 

@@ -4,7 +4,8 @@ const initialState = {
     cart:[],
     total: 0,
     specialTotal: 0,
-    specialPricing: null
+    specialPricing: null,
+    promotions: null
 }
 
 const products = [
