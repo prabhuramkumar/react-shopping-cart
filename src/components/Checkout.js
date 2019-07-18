@@ -11,9 +11,9 @@ class Checkout extends Component{
 
     handleChange = (e)=>{
         let selectedPricing = specialPricing[e.target.value];
-       this.props.actions.updateSpecialPricing(selectedPricing);
-       let promotionText = selectedPricing && selectedPricing.description.map((item)=>{return item + "\n"});
-       this.setState({promotionText});
+        this.props.actions.updateSpecialPricing(selectedPricing);
+        let promotionText = selectedPricing && selectedPricing.description.map((item)=>{return item + "\n"});
+        this.setState({promotionText});
     }
 
     //static message display.
@@ -22,12 +22,12 @@ class Checkout extends Component{
     }
 
     promotionList = () => {
-         return specialPricing.map((item, index)=>{
+        return specialPricing.map((item, index)=>{
             return <option value={index} key={item.id}>{item.promotionReference}</option>
         });
     }
 
-    //if special pricing is not avialibale, regular checkut continues.
+    //if special pricing is not avialibale, customers can still use regular checkout continues.
     specialPricing = () => {
         if(specialPricing && specialPricing.length) {
             return (  

@@ -1,9 +1,11 @@
 import React, { Component, lazy, Suspense } from 'react';
 import './styles/app.css';
 import products from './data/products';
+import ErrorBoundary  from './components/ErrorBoundary';
 const ProductList = lazy(() => import('./components/ProductList'));
 const CartList = lazy(() => import('./components/CartList'));
 const Checkout = lazy(() => import('./components/Checkout'));
+
 
 class App extends Component {
 	constructor(props) {
@@ -12,14 +14,16 @@ class App extends Component {
 	}
 
 	render(){
-		const {cart, total, specialTotal} = this.props.appState;
+	  const {cart, total, specialTotal} = this.props.appState;
 	  return (
-	    <div className="App">
-	    	<Suspense fallback={<div>Loading...</div>}>
-	      		<ProductList actions={this.props.actions}/>
-	      		<CartList cart={cart} actions={this.props.actions} total={total}/>
-	      		<Checkout cart={cart} specialTotal={specialTotal} total={total} actions={this.props.actions}/>
-	      	</Suspense>
+	    <div className="app">
+	    	<ErrorBoundary>
+	    		<Suspense fallback={<div>Loading...</div>}>
+	      			<ProductList actions={this.props.actions}/>
+	      			<CartList cart={cart} actions={this.props.actions} total={total}/>
+	      			<Checkout cart={cart} specialTotal={specialTotal} total={total} actions={this.props.actions}/>
+	      		</Suspense>
+	      	</ErrorBoundary>
 	    </div>
 	  )
 	};

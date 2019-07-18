@@ -1,6 +1,6 @@
-import { React, Component } from 'react';
+import React, { Component } from 'react';
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,9 +22,7 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <div>
-          <h1>Oops, something went wrong :(</h1>
-          <p>The error: {this.state.error.toString()}</p>
-          <p>Where it occured: {this.state.info.componentStack}</p>
+          <h4>Oops!! something went wrong.</h4>
         </div>
       );
     }
