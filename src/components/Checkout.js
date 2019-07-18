@@ -1,5 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
-import '../styles/checkout.css'
+import React, { useState, useEffect } from 'react';
 import specialPricing from '../data/specialPricing';
 
 function Checkout(props){
@@ -9,7 +8,7 @@ function Checkout(props){
 
     useEffect(() => {
         setPromotions(specialPricing);
-    });
+    }, []);
 
     const handleChange = (e)=>{
         let selectedPricing = specialPricing[e.target.value];

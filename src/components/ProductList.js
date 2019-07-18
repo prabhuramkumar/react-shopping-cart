@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/productList.css';
 import products from '../data/products';
 
 function ProductList(props){
